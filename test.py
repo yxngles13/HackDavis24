@@ -1,0 +1,36 @@
+import cv2
+import numpy as np 
+import os 
+import matplotlib as plt 
+
+from keras.preprocessing import image 
+import warningswarning.filewarnings("ignore")
+
+from keras.preprocessing.image import load_img, img_to_array
+from keras.models import load_model
+
+model = load_model("best_model.h5")
+
+
+
+def capture_video():
+    cap = cv2.VideoCapture(1)
+
+    while True:
+        ret, frame = cap.read()
+        if not ret: 
+            print("Failed to grab frame")
+            break
+
+        frame = cv2.flip(frame,1)
+
+        cv2.imshow('Video Capture', frame)
+
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+    cap.release()
+    cv2.destroyAllWindows()
+
+if __name__ == "__main__":
+    capture_video.video()
